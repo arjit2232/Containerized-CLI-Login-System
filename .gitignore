@@ -1,0 +1,12 @@
+# Compiled binary
+/cli
+
+# OS / editor cruft
+.DS_Store
+*.swp
+
+# Go
+/vendor/
+
+# Local bind-mounted DB data
+db_data/
