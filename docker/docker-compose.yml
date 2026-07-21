@@ -1,0 +1,25 @@
+services:
+  db:
+    image: mysql:8.0
+    env_file: ../.env
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "osto", "-posto_pass"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  cli:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file: ../.env
+    stdin_open: true
+    tty: true
+
+volumes:
+  db_data:
